@@ -21,7 +21,7 @@ io.on('connection', function (socket) {
 			if(err) {
 				console.log(err)
 
-				socket.emit('error', { error: 'Ocurrió un error, intente nuevamente AA.'})
+				socket.emit('todos_list', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
 
@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
 	socket.on('add_todo', function(data) {
 		Todo.crear(data, function(err) {
 			if(err) {
-				socket.emit('error', { error: 'Ocurrió un error, intente nuevamente AA.'})
+				socket.emit('add_todo', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
 
@@ -47,7 +47,7 @@ io.on('connection', function (socket) {
 	socket.on('show_todo', function(data) {
 		Todo.mostrar(data.id_todo, function(err, todo) {
 			if(err) {
-				socket.emit('error', { error: 'Ocurrió un error, intente nuevamente AA.'})
+				socket.emit('show_todo', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
 
@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
 	socket.on('edit_todo', function(data) {
 		Todo.actualizar(data, function(err) {
 			if(err) {
-				socket.emit('error', { error: 'Ocurrió un error, intente nuevamente AA.'})
+				socket.emit('edit_todo', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
 
@@ -73,7 +73,7 @@ io.on('connection', function (socket) {
 	socket.on('delete_todo', function(data) {
 		Todo.eliminar(data.id_todo, function(err) {
 			if(err) {
-				socket.emit('error', { error: 'Ocurrió un error, intente nuevamente AA.'})
+				socket.emit('delete_todo', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
 

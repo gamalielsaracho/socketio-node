@@ -20,13 +20,13 @@
     function showTodo(idTodo) {
       socket.emit('show_todo', { id_todo: idTodo })
 
-      // socket.on('show_todo', function(data) {
-      //   console.log(data)
-      // })
+      socket.on('show_todo', function(data) {
+        console.log(data)
+      })
     }
 
     function editTodo(idTodo) {
-      socket.emit('edit_todo', { id_todo: idTodo, isDone: true, text: 'Esto volvió a cambiar.' })
+      socket.emit('edit_todo', { id_todo: idTodo, isDone: false, text: 'Esto volvió a cambiar.' })
     }
 
     function deleteTodo(idTodo) {
