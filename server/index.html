@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Hello world</title></head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    socket.on('todos_list', function(data) {
+      console.log(data)
+    })
+
+    socket.on('messageSuccess', function(data) {
+        console.log(data.message)
+    })
+
+    function addTodo() {
+      socket.emit('add_todo', { text: 'desde algo', isDone: 1 })
+    }
+
+    function showTodo(idTodo) {
+      socket.emit('show_todo', { id_todo: idTodo })
+
+      // socket.on('show_todo', function(data) {
+      //   console.log(data)
+      // })
+    }
+
+    function editTodo(idTodo) {
+      socket.emit('edit_todo', { id_todo: idTodo, isDone: true, text: 'Esto volvió a cambiar.' })
+    }
+
+    function deleteTodo(idTodo) {
+      socket.emit('delete_todo', { id_todo: idTodo })
+    }
+
+
+    // socket.on('messageSuccess', function(data) {
+    //   console.log(data.message)
+    // })
+
+    // Llamamos al evento con los datos que tre desde el servidor.
+    // socket.on('testEvent', function(data) {
+    // 	document.write(data.description)
+
+    // 	console.log(data)
+    // })
+
+    // Eminiendo un evento desde el cliente hacia el servidor.
+    // var users = [
+    // 	{
+    // 		id: 1,
+    // 		username: '@tororito',
+    // 		email: 'toro@gmail.com'
+    // 	},
+    //   {
+    //     id: 2,
+    //     username: '@gambliel',
+    //     email: 'gama21@gmail.com'
+    //   }
+    // ]
+
+    // socket.emit('eventClient', { users })
+
+    // function sendData() {
+    //   socket.emit('todos', { id:2, isDone: true, text: 'hola mundo.' })
+    //   socket.on('todos', function(todo) {
+    //     console.log(todo)
+    //   })  
+    // }
+
+
+    // socket.on('broadcast', function(data) {
+    //   document.body.innerHTML = ''
+    //   document.write(data.description)
+
+    //   console.log(data.description)
+    // })
+
+  </script>
+
+  <body>
+  	<h3>Hello world</h3>
+  	<button onclick="addTodo()">Send data.</button>
+
+    <button onclick="showTodo(1)">Show data.</button>
+
+    <button onclick="editTodo(2)">Edit data.</button>
+
+    <button onclick="deleteTodo(3)">Delete data.</button>
+
+
+    <h1 id='text-client'></h1>
+  </body>
+
+</html>
