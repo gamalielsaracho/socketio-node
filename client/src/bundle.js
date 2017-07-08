@@ -47383,12 +47383,18 @@
 				// console.log(this.props.changeTodo)
 				// console.log(this.props.deleteTodo)
 
+				var styles = {
+					spaceBtn: {
+						marginLeft: '1em'
+					}
+				};
+
 				if (loading) {
 					return _react2.default.createElement(
 						'div',
-						null,
+						{ className: 'container' },
 						_react2.default.createElement(
-							'h4',
+							'h5',
 							null,
 							'Cargando..'
 						)
@@ -47396,45 +47402,50 @@
 				} else {
 					return _react2.default.createElement(
 						'div',
-						null,
+						{ className: 'container' },
 						_react2.default.createElement(
-							'h1',
-							null,
+							'h3',
+							{ className: 'center' },
 							'Todo List.'
 						),
-						_react2.default.createElement(_FormTodo2.default, null),
 						_react2.default.createElement(
-							'h4',
-							null,
+							'h5',
+							{ className: 'center' },
 							changeTodo.message
 						),
 						_react2.default.createElement(
-							'h4',
-							null,
+							'h5',
+							{ className: 'center' },
 							deleteTodo.message
 						),
-						todos.map(function (todo) {
-							return _react2.default.createElement(
-								'div',
-								{ key: todo.id_todo },
-								_react2.default.createElement(_Todo2.default, { todo: todo }),
-								_react2.default.createElement(
-									'button',
-									{ onClick: function onClick() {
-											_this2.props.editTodo(todo.id_todo);
-										} },
-									'Done'
-								),
-								_react2.default.createElement(
-									'button',
-									{ onClick: function onClick() {
-											_this2.props.removeTodo(todo.id_todo);
-										} },
-									'Delete'
-								),
-								_react2.default.createElement('br', null)
-							);
-						})
+						_react2.default.createElement(_FormTodo2.default, null),
+						_react2.default.createElement(
+							'div',
+							{ className: 'row center-lg center-md center-sm center-xs' },
+							todos.map(function (todo) {
+								return _react2.default.createElement(
+									'div',
+									{ key: todo.id_todo, className: 'col-xs-12 col-sm-12 col-md-12 col-lg-12' },
+									_react2.default.createElement(_Todo2.default, { todo: todo }),
+									_react2.default.createElement(
+										'a',
+										{ style: styles.spaceBtn, className: '#0288d1 light-blue darken-2 btn', onClick: function onClick() {
+												_this2.props.editTodo(todo.id_todo);
+											} },
+										'Done'
+									),
+									_react2.default.createElement(
+										'a',
+										{ style: styles.spaceBtn, className: '#0288d1 light-blue darken-2 btn', onClick: function onClick() {
+												_this2.props.removeTodo(todo.id_todo);
+											} },
+										'Delete'
+									),
+									_react2.default.createElement('br', null),
+									_react2.default.createElement('br', null)
+								);
+							})
+						)
 					);
 				}
 			}
@@ -47675,7 +47686,7 @@
 			value: function renderLoading(loading) {
 				if (loading) {
 					return _react2.default.createElement(
-						'h1',
+						'h5',
 						null,
 						'Cargando..'
 					);
@@ -47691,7 +47702,7 @@
 						'div',
 						null,
 						_react2.default.createElement(
-							'h3',
+							'h5',
 							null,
 							message
 						)
@@ -47715,17 +47726,25 @@
 
 				return _react2.default.createElement(
 					'div',
-					null,
-					this.renderLoading(loading),
-					this.renderMessage(message),
+					{ className: 'container' },
 					_react2.default.createElement(
-						'form',
-						{ onSubmit: handleSubmit(this.sendMyForm) },
-						_react2.default.createElement(_reduxForm.Field, { name: 'text', type: 'text', component: renderField, label: 'Thing' }),
+						'div',
+						{ className: 'row center-lg center-md center-sm center-xs' },
 						_react2.default.createElement(
-							'button',
-							{ className: '#0288d1 light-blue darken-2 btn', type: 'submit', disabled: submitting },
-							'Send'
+							'div',
+							{ className: 'col-xs-10 col-sm-6 col-md-6 col-lg-6' },
+							this.renderLoading(loading),
+							this.renderMessage(message),
+							_react2.default.createElement(
+								'form',
+								{ onSubmit: handleSubmit(this.sendMyForm) },
+								_react2.default.createElement(_reduxForm.Field, { name: 'text', type: 'text', component: renderField, label: 'Thing' }),
+								_react2.default.createElement(
+									'button',
+									{ className: 'right #0288d1 light-blue darken-2 btn', type: 'submit', disabled: submitting },
+									'Send'
+								)
+							)
 						)
 					)
 				);

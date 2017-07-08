@@ -28,7 +28,7 @@ class FormTodo extends Component {
 
 	renderLoading(loading) {
 		if(loading) {
-			return <h1>Cargando..</h1>
+			return <h5>Cargando..</h5>
 		} else {
 			return <span></span>
 		}
@@ -37,7 +37,7 @@ class FormTodo extends Component {
 	renderMessage(message) {
 		if(message) {
 			return <div>
-				<h3>{ message }</h3>
+				<h5>{ message }</h5>
 			</div>
 		} else {
 			return <span></span>
@@ -49,15 +49,20 @@ class FormTodo extends Component {
 
 		const { loading, message } = this.props.insertTodo
 
-		return <div>
-			{ this.renderLoading(loading) }
-			{ this.renderMessage(message) }
+		return <div className='container'>
+			<div className='row center-lg center-md center-sm center-xs'>
+				<div className='col-xs-10 col-sm-6 col-md-6 col-lg-6'>
+				
+					{ this.renderLoading(loading) }
+					{ this.renderMessage(message) }
 
-			<form onSubmit={handleSubmit(this.sendMyForm)}>
-				<Field name='text' type='text' component={renderField} label='Thing'/>
-					
-				<button className='#0288d1 light-blue darken-2 btn' type="submit" disabled={submitting}>Send</button>
-			</form>
+					<form onSubmit={handleSubmit(this.sendMyForm)}>
+						<Field name='text' type='text' component={renderField} label='Thing'/>
+							
+						<button className='right #0288d1 light-blue darken-2 btn' type="submit" disabled={submitting}>Send</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	}
 }
