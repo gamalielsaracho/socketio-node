@@ -62,18 +62,53 @@ export function fetchTodo(idTodo) {
 
 export function addTodo(dataForm) {
 	return (dispatch) => {
+		dispatch({ type: ADD_TODO_REQUEST })
 
+		socket.emit('add_todo', dataForm)
+		socket.on('add_todo', function(data) {
+			if(data.error) {
+				dispatch({ type: ADD_TODO_FAILURE, payload: data.error })
+			} else {
+				dispatch({ type: ADD_TODO_SUCCESS, payload: data })
+			}
+		})
 	}
 }
 
-export function editTodo(dataForm) {
+export function editTodo(idTodo) {
+	console.log('el Id essss: '+idTodo)
 	return (dispatch) => {
+		dispatch({ type: EDIT_TODO_REQUEST })
 
+		let todo = {}
+
+		todo.id_todo = idTodo
+		// todo.isDone = dataForm.isDone
+		// todo.text = dataForm.text
+
+		socket.emit('edit_todo', todo)
+		socket.on('edit_todo', function (data) {
+			if(data.error) {
+				dispatch({ type: EDIT_TODO_FAILURE, payload: data.error })
+			} else {
+				dispatch({ type: EDIT_TODO_SUCCESS, payload: data })
+			}
+		})
 	} 
 }
 
 export function deleteTodo(idTodo) {
 	return (dispatch) => {
+		dispatch({ type: DELETE_TODO_REQUEST })
+
+		socket.emit('delete_todo', { id_todo: idTodo })
+		socket.on('delete_todo', function(data) {
+			if(data.error) {
+				dispatch({ type: DELETE_TODO_FAILURE, payload: data.error })
+			} else {
+				dispatch({ type: DELETE_TODO_SUCCESS, payload: data })
+			}
+		})
 
 	} 
 }

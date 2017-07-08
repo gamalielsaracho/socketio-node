@@ -32,13 +32,18 @@ io.on('connection', function (socket) {
 	handleEmitTodosList() 
 
 	socket.on('add_todo', function(data) {
-		Todo.crear(data, function(err) {
+		Todo.crear(data, function(err, result) {
 			if(err) {
 				socket.emit('add_todo', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
+			
+			// console.log(result.insertId)
 
-			socket.emit('messageSuccess', { message: 'Se agregó exitósamente.' })
+			socket.emit('add_todo', { 
+				message: 'Se agregó exitósamente.',
+				id_todo: result.insertId
+			})
 			
 			handleEmitTodosList()
 		})
@@ -60,11 +65,12 @@ io.on('connection', function (socket) {
 	socket.on('edit_todo', function(data) {
 		Todo.actualizar(data, function(err) {
 			if(err) {
+				console.log(err)
 				socket.emit('edit_todo', { error: 'Ocurrió un error, intente nuevamente AA.'})
 				return
 			}
 
-			socket.emit('messageSuccess', { message: 'Se actualizó exitósamente.' })
+			socket.emit('edit_todo', { message: 'Se actualizó exitósamente.' })
 			
 			handleEmitTodosList()
 		})
@@ -77,7 +83,7 @@ io.on('connection', function (socket) {
 				return
 			}
 
-			socket.emit('messageSuccess', { message: 'Se Eliminó exitósamente.' })
+			socket.emit('delete_todo', { message: 'Se Eliminó exitósamente.' })
 
 			handleEmitTodosList()
 		})

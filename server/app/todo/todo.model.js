@@ -30,7 +30,7 @@ exports.eliminar = function(idTodo, callback) {
 
 exports.actualizar = function(datos, callback) {
 
-	return connection.query('UPDATE todos SET isDone=?, text=? WHERE id_todo = ?', [datos.isDone, datos.text, datos.id_todo], callback)
+	return connection.query('UPDATE todos SET isDone = ? WHERE id_todo = ?', [true, datos.id_todo], callback)
 
 	connection.end()
 }
